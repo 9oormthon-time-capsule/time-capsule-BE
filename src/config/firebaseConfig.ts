@@ -6,9 +6,9 @@ const serviceAccount = require('../../config');
 export let app: FirebaseApp;
 
 try {
-  app = getApp('app');
+	app = getApp('app');
 } catch (e) {
-  app = initializeApp(serviceAccount, 'app');
+	app = initializeApp(serviceAccount, 'app');
 }
 
 export const database = getFirestore(app);

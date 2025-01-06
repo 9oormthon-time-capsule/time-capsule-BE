@@ -1,20 +1,33 @@
-import express from 'express';
-import itemRoutes from './router/routerExample';
-import letterRoutes from './router/routerLetter';
+import express from "express";
+import dotenv from "dotenv";
+import bodyParser from "body-parser";
+import cors from "cors";
+
+import categoryRoutes from "./router/routerCategory";
+import letterRoutes from "./router/routerLetter";
+import { sessionConfig } from "./config/sessionConfig";
+import { kakaoRouter } from "./router/kakaoRoutes";
+
+dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT;
 
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-	res.send('Hello, Time Capsule!');
+app.use(cors());
+
+app.get("/", (req, res) => {
+  res.send("Hello, Time Capsule!");
 });
 
-// 예시 라우터 사용
-app.use('/api', itemRoutes);
-app.use('/api', letterRoutes);
+app.use(sessionConfig);
+
+app.use(kakaoRouter);
+app.use("/api", categoryRoutes);
+app.use("/api", letterRoutes);
 
 app.listen(port, () => {
-	console.log(`서버 실행 성공! http://localhost:${port}`);
+  console.log(`서버 실행 성공! http://localhost:${port}`);
 });

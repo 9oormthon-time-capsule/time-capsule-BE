@@ -3,10 +3,10 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
 
-import letterRoutes from "./router/routerLetter";
 import categoryRoutes from "./router/routerCategory";
-import { kakaoRouter } from "./router/kakaoRoutes";
+import letterRoutes from "./router/routerLetter";
 import { sessionConfig } from "./config/sessionConfig";
+import { kakaoRouter } from "./router/kakaoRoutes";
 
 dotenv.config();
 

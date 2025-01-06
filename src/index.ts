@@ -5,6 +5,7 @@ import cors from "cors";
 
 import categoryRoutes from "./router/routerCategory";
 import letterRoutes from "./router/routerLetter";
+import reflectRoutes from "./router/routerReflect";
 import { sessionConfig } from "./config/sessionConfig";
 import { kakaoRouter } from "./router/kakaoRoutes";
 
@@ -27,6 +28,7 @@ app.use(sessionConfig);
 app.use(kakaoRouter);
 app.use("/api", categoryRoutes);
 app.use("/api", letterRoutes);
+app.use("/api", reflectRoutes);
 
 app.listen(port, () => {
   console.log(`서버 실행 성공! http://localhost:${port}`);

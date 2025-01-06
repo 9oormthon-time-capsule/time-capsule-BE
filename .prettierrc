@@ -17,12 +17,6 @@
       "options": {
         "parser": "babel-ts"
       }
-    },
-    {
-      "files": ["*.json", "*.jsonc", "*.json5"],
-      "options": {
-        "parser": "json5"
-      }
     }
   ]
 }

@@ -54,8 +54,6 @@ kakaoRouter.get(
       return;
     }
 
-    console.log(user.data.properties.nickname);
-
     /* 가지고 온 사용자 정보 DB & session 저장 */
     await setUsers(user.data);
 

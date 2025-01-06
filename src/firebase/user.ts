@@ -9,7 +9,6 @@ import {
 import { database } from "../config/firebaseConfig";
 
 export const setUsers = async (userData: any) => {
-  console.log(userData);
   const userInfo = {
     _id: userData.id,
     name: userData.kakao_account.profile.nickname,

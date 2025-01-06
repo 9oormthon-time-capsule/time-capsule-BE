@@ -1,9 +1,22 @@
 {
-  "singleQuote": true,
-  "parser": "typescript",
-  "semi": true,
-  "useTabs": true,
-  "tabWidth": 2,
   "printWidth": 80,
-  "trailingComma": "all"
+  "endOfLine": "lf",
+  "tabWidth": 2,
+  "semi": true,
+  "bracketSpacing": false,
+  "useTabs": false,
+  "overrides": [
+    {
+      "files": ["*.mjs", "*.cjs", "*.js"],
+      "options": {
+        "parser": "babel"
+      }
+    },
+    {
+      "files": ["*.mts", "*.cts", "*.ts"],
+      "options": {
+        "parser": "babel-ts"
+      }
+    }
+  ]
 }

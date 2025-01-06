@@ -7,6 +7,7 @@ import categoryRoutes from "./router/routerCategory";
 import letterRoutes from "./router/routerLetter";
 import { sessionConfig } from "./config/sessionConfig";
 import { kakaoRouter } from "./router/kakaoRoutes";
+import { userRouter } from "./router/routerUser";
 
 dotenv.config();
 
@@ -25,6 +26,8 @@ app.get("/", (req, res) => {
 app.use(sessionConfig);
 
 app.use(kakaoRouter);
+
+app.use(userRouter);
 app.use("/api", categoryRoutes);
 app.use("/api", letterRoutes);
 

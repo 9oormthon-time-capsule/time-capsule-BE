@@ -19,6 +19,7 @@ export const setUsers = async (userData: any) => {
     collection(database, "timecapsule", "user", "users"),
     `${userInfo._id}`,
   );
+
   const userDoc = await getDoc(userRef);
 
   if (!userDoc.exists()) {

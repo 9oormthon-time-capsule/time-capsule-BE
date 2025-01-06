@@ -4,16 +4,19 @@ import {
   addDoc,
   getDocs,
   serverTimestamp,
+  doc,
 } from "firebase/firestore";
 
 // 회고 등록 함수
 export const addReflect = async (user_id: number, content: string) => {
   try {
-    const docRef = await addDoc(collection(database, "reflects"), {
-      user_id,
-      content,
-      created_at: serverTimestamp(),
-    });
+    const docRef = await addDoc(
+      collection(doc(database, "reflects", user_id.toString()), "posts"),
+      {
+        content,
+        created_at: serverTimestamp(),
+      }
+    );
 
     return docRef.id;
   } catch (error) {
@@ -24,14 +27,13 @@ export const addReflect = async (user_id: number, content: string) => {
 // 회고 조회 함수
 export const getReflect = async (user_id: number) => {
   try {
-    const querySnapshot = await getDocs(collection(database, "reflects"));
-    const reflects = querySnapshot.docs
-      .map((doc) => ({
-        id: doc.id,
-        user_id: doc.data().user_id,
-        ...doc.data(),
-      }))
-      .filter((reflect) => reflect.user_id === user_id);
+    const querySnapshot = await getDocs(
+      collection(doc(database, "reflects", user_id.toString()), "posts")
+    );
+    const reflects = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
 
     return reflects;
   } catch (error) {

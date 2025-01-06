@@ -1237,6 +1237,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+<<<<<<< HEAD
+"dotenv@npm:^16.4.7":
+  version: 16.4.7
+  resolution: "dotenv@npm:16.4.7"
+  checksum: 10c0/be9f597e36a8daf834452daa1f4cc30e5375a5968f98f46d89b16b983c567398a330580c88395069a77473943c06b877d1ca25b4afafcdd6d4adb549e8293462
+  languageName: node
+  linkType: hard
+
+=======
+>>>>>>> origin
 "dunder-proto@npm:^1.0.0":
   version: 1.0.1
   resolution: "dunder-proto@npm:1.0.1"
@@ -2587,6 +2597,10 @@ __metadata:
     "@types/express": "npm:^5.0.0"
     "@types/node": "npm:^22.10.2"
     concurrently: "npm:^9.1.0"
+<<<<<<< HEAD
+    dotenv: "npm:^16.4.7"
+=======
+>>>>>>> origin
     express: "npm:^4.21.2"
     firebase: "npm:^11.1.0"
     nodemon: "npm:^3.1.9"

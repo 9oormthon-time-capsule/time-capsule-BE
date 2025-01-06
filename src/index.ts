@@ -1,5 +1,6 @@
 import express from 'express';
 import itemRoutes from './router/routerExample';
+import categoryRoutes from './router/routerCategory';
 import letterRoutes from './router/routerLetter';
 
 const app = express();
@@ -13,6 +14,7 @@ app.get('/', (req, res) => {
 
 // 예시 라우터 사용
 app.use('/api', itemRoutes);
+app.use('/api', categoryRoutes);
 app.use('/api', letterRoutes);
 
 app.listen(port, () => {

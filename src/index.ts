@@ -1,5 +1,6 @@
 import express from 'express';
 import itemRoutes from './router/routerExample';
+import categoryRoutes from './router/routerCategory';
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -12,6 +13,7 @@ app.get('/', (req, res) => {
 
 // 예시 라우터 사용
 app.use('/api', itemRoutes);
+app.use('/api', categoryRoutes);
 
 app.listen(port, () => {
   console.log(`서버 실행 성공! http://localhost:${port}`);

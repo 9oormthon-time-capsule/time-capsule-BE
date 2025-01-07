@@ -4,9 +4,14 @@ import { addLetter, getLetters } from "../firebase/firebaseLetter";
 const router = Router();
 
 // 편지 등록 엔드 포인트
-router.post("/timecapsule/letter/:userId", async (req, res) => {
-  const { userId } = req.params;
+router.post("/timecapsule/letter", async (req, res) => {
+  const userId = req.session.userData?._id;
   const { content } = req.body;
+
+  if (!userId) {
+    res.status(401).send("로그인이 필요합니다.");
+    return;
+  }
 
   try {
     const letterId = await addLetter(userId, content);
@@ -17,8 +22,14 @@ router.post("/timecapsule/letter/:userId", async (req, res) => {
 });
 
 // 편지 조회 엔드 포인트
-router.get("/timecapsule/letter/:userId", async (req, res) => {
-  const { userId } = req.params;
+router.get("/timecapsule/letter", async (req, res) => {
+  const userId = req.session.userData?._id;
+
+  if (!userId) {
+    res.status(401).send("로그인이 필요합니다.");
+    return;
+  }
+
   try {
     const letters = await getLetters(userId);
     res.status(200).json(letters);

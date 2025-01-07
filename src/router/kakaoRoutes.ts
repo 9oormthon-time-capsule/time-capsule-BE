@@ -61,9 +61,9 @@ kakaoRouter.get(
       _id: user.data.id,
       name: user.data.kakao_account.profile.nickname,
     };
-
+    await req.session.save(); // 세션 저장
     res.redirect(`http://localhost:3000/main/${req.session.userData._id}`);
-  },
+  }
 );
 
 /* session에 저장된 사용자 정보 Client 전달 */

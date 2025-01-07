@@ -1,18 +1,26 @@
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  serverTimestamp,
+} from "firebase/firestore";
 import { database } from "../config/firebaseConfig";
 
 export const addCategory = async (
-  userId: string,
+  userId: number,
   categoryName: string,
-  color: string
+  textColor: string
 ) => {
   try {
-    const docRef = await addDoc(collection(database, "category"), {
-      userId,
-      categoryName,
-      color,
-      createdAt: new Date(),
-    });
+    const docRef = await addDoc(
+      collection(doc(database, "categories", userId.toString()), "category"),
+      {
+        categoryName,
+        textColor,
+        createdAt: serverTimestamp(),
+      }
+    );
 
     return docRef.id;
   } catch (error) {
@@ -20,9 +28,11 @@ export const addCategory = async (
   }
 };
 
-export const getCategories = async () => {
+export const getCategories = async (userId: number) => {
   try {
-    const querySnapshot = await getDocs(collection(database, "category"));
+    const querySnapshot = await getDocs(
+      collection(doc(database, "categories", userId.toString()), "category")
+    );
     const categories = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),

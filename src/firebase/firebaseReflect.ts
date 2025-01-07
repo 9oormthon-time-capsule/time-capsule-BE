@@ -8,13 +8,13 @@ import {
 } from "firebase/firestore";
 
 // 회고 등록 함수
-export const addReflect = async (user_id: number, content: string) => {
+export const addReflect = async (userId: number, content: string) => {
   try {
     const docRef = await addDoc(
-      collection(doc(database, "reflects", user_id.toString()), "posts"),
+      collection(doc(database, "reflects", userId.toString()), "posts"),
       {
         content,
-        created_at: serverTimestamp(),
+        createdAt: serverTimestamp(),
       }
     );
 
@@ -25,10 +25,10 @@ export const addReflect = async (user_id: number, content: string) => {
 };
 
 // 회고 조회 함수
-export const getReflect = async (user_id: number) => {
+export const getReflect = async (userId: number) => {
   try {
     const querySnapshot = await getDocs(
-      collection(doc(database, "reflects", user_id.toString()), "posts")
+      collection(doc(database, "reflects", userId.toString()), "posts")
     );
     const reflects = querySnapshot.docs.map((doc) => ({
       id: doc.id,

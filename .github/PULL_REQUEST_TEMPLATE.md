@@ -27,6 +27,6 @@
 - [ ] 브랜치 확인하기
 - [ ] 불필요한 코드가 들어가지 않았는지 재확인하기
 - [ ] issue 닫기
-- [ ] reivewers, assignees, Lables 등록 확인하기
+- [ ] reviewers, assignees, Lables 등록 확인하기
 
 **이슈 번호**: #[이슈 번호]

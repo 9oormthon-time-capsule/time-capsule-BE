@@ -1,6 +1,7 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDocs,
   serverTimestamp,
@@ -41,5 +42,23 @@ export const getCategories = async (userId: number) => {
     return categories;
   } catch (error) {
     throw new Error(`카테고리 조회 중 오류 발생: ${error}`);
+  }
+};
+
+export const deleteCategories = async (userId: number, categoryId: string) => {
+  try {
+    const categoryDocRef = doc(
+      database,
+      "categories",
+      userId.toString(),
+      "category",
+      categoryId
+    );
+
+    await deleteDoc(categoryDocRef);
+
+    console.log(`카테고리 ${categoryId}가 성공적으로 삭제되었습니다.`);
+  } catch (error) {
+    throw new Error(`카테고리 삭제 중 오류 발생: ${error}`);
   }
 };

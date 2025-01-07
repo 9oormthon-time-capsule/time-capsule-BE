@@ -4,17 +4,20 @@ import {
   addDoc,
   getDocs,
   serverTimestamp,
+  doc,
 } from "firebase/firestore";
 
 // 편지 등록 함수
-export const addLetter = async (user_id: string, content: string) => {
+export const addLetter = async (user_id: number, content: string) => {
   try {
-    const docRef = await addDoc(collection(database, "letters"), {
-      user_id,
-      content,
-      is_read: false,
-      created_at: serverTimestamp(),
-    });
+    const docRef = await addDoc(
+      collection(doc(database, "letters", user_id.toString()), "posts"),
+      {
+        content,
+        is_read: false,
+        created_at: serverTimestamp(),
+      }
+    );
 
     return docRef.id;
   } catch (error) {
@@ -23,16 +26,15 @@ export const addLetter = async (user_id: string, content: string) => {
 };
 
 // 편지 조회 함수
-export const getLetters = async (user_id: string) => {
+export const getLetters = async (user_id: number) => {
   try {
-    const querySnapshot = await getDocs(collection(database, "letters"));
-    const letters = querySnapshot.docs
-      .map((doc) => ({
-        id: doc.id,
-        user_id: doc.data().user_id,
-        ...doc.data(),
-      }))
-      .filter((letter) => letter.user_id === user_id);
+    const querySnapshot = await getDocs(
+      collection(doc(database, "letters", user_id.toString()), "posts")
+    );
+    const letters = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
 
     return letters;
   } catch (error) {

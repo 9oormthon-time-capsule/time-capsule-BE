@@ -6,15 +6,20 @@ const router = Router();
 // 회고 등록 엔드포인트
 router.post("/timecapsule/reflect", async (req, res) => {
   const userId = req.session.userData?._id; // 세션에서 사용자 ID 가져옴
-  const { content } = req.body;
+  const { content, emoji } = req.body;
 
   if (!userId) {
     res.status(401).send("로그인이 필요합니다.");
     return;
   }
 
+  if (!content || !emoji) {
+    res.status(400).send("내용과 이모지를 모두 입력해야 합니다.");
+    return;
+  }
+
   try {
-    const reflectId = await addReflect(userId, content);
+    const reflectId = await addReflect(userId, content, emoji);
     res.status(201).send(`회고가 등록되었습니다. ID: ${reflectId}`);
   } catch (error: any) {
     res.status(500).send(error.message);

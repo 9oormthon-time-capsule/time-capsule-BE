@@ -8,12 +8,17 @@ import {
 } from "firebase/firestore";
 
 // 회고 등록 함수
-export const addReflect = async (userId: number, content: string) => {
+export const addReflect = async (
+  userId: number,
+  content: string,
+  emoji: string
+) => {
   try {
     const docRef = await addDoc(
       collection(doc(database, "reflects", userId.toString()), "posts"),
       {
         content,
+        emoji,
         createdAt: serverTimestamp(),
       }
     );

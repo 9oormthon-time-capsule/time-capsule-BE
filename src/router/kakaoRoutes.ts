@@ -60,10 +60,12 @@ kakaoRouter.get(
     req.session.userData = {
       _id: user.data.id,
       name: user.data.kakao_account.profile.nickname,
+      profileImage: user.data.kakao_account.profile.profile_image_url,
     };
+
     await req.session.save(); // 세션 저장
-    res.redirect(`http://localhost:3000/main/${req.session.userData._id}`);
-  }
+    res.redirect(`http://localhost:3000/main`);
+  },
 );
 
 /* session에 저장된 사용자 정보 Client 전달 */

@@ -2,7 +2,7 @@ import session from "express-session";
 
 declare module "express-session" {
   interface SessionData {
-    userData: { _id: number; name: string };
+    userData: { _id: number; name: string; profileImage: string };
   }
 }
 
@@ -12,7 +12,8 @@ export const sessionConfig = session({
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    sameSite: "strict", // 엄격한 SameSite 설정
-    // maxAge: 1000 * 60 * 60 * 24, // 1일 (밀리초 단위)
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    maxAge: 1000 * 60 * 60 * 24,
   },
 });

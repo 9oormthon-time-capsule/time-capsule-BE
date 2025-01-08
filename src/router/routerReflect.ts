@@ -13,11 +13,6 @@ router.post("/timecapsule/reflect", async (req, res) => {
     return;
   }
 
-  if (!content || !emoji) {
-    res.status(400).send("내용과 이모지를 모두 입력해야 합니다.");
-    return;
-  }
-
   try {
     const reflectId = await addReflect(userId, content, emoji);
     res.status(201).send(`회고가 등록되었습니다. ID: ${reflectId}`);

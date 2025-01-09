@@ -12,8 +12,7 @@ import {
 export const addTodo = async (
   userId: number,
   task: string,
-  categoryId: string,
-  isCompleted: boolean
+  categoryId: string
 ) => {
   try {
     const docRef = await addDoc(
@@ -21,7 +20,7 @@ export const addTodo = async (
       {
         task,
         categoryId,
-        isCompleted,
+        isCompleted: false,
         createdAt: serverTimestamp(),
       }
     );

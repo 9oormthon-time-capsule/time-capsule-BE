@@ -6,6 +6,7 @@ import cors from "cors";
 import categoryRoutes from "./router/routerCategory";
 import letterRoutes from "./router/routerLetter";
 import reflectRoutes from "./router/routerReflect";
+import todoRoutes from "./router/routerTodo";
 import { sessionConfig } from "./config/sessionConfig";
 import { kakaoRouter } from "./router/kakaoRoutes";
 
@@ -21,7 +22,7 @@ app.use(
   cors({
     origin: "http://localhost:3000",
     credentials: true,
-  }),
+  })
 );
 
 app.get("/", (req, res) => {
@@ -35,6 +36,7 @@ app.use(kakaoRouter);
 app.use("/api", categoryRoutes);
 app.use("/api", letterRoutes);
 app.use("/api", reflectRoutes);
+app.use("/api", todoRoutes);
 
 app.listen(port, () => {
   console.log(`서버 실행 성공! http://localhost:${port}`);

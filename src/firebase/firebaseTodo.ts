@@ -6,6 +6,7 @@ import {
   serverTimestamp,
   doc,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 
 // Todo 등록 함수
@@ -65,5 +66,15 @@ export const updateTodo = async (
     return "todo update 완료";
   } catch (error) {
     throw new Error(`할 일 업데이트 중 오류 발생: ${error}`);
+  }
+};
+
+export const deleteTodo = async (userId: number, todoId: string) => {
+  try {
+    await deleteDoc(doc(database, "todos", userId.toString(), "posts", todoId));
+
+    return "todo 삭제 완료";
+  } catch (error) {
+    throw new Error(`할 일 삭제 중 오류 발생: ${error}`);
   }
 };

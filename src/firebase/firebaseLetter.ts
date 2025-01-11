@@ -5,17 +5,23 @@ import {
   getDocs,
   serverTimestamp,
   doc,
+  Timestamp,
 } from "firebase/firestore";
 
 // 편지 등록 함수
 export const addLetter = async (userId: number, content: string) => {
   try {
+    const now = new Date();
+    const nextYear = now.getFullYear() + 1;
+    const currentMonth = now.getMonth();
+    const canReadDate = new Date(nextYear, currentMonth, 1);
+
     const docRef = await addDoc(
       collection(doc(database, "letters", userId.toString()), "posts"),
       {
         content,
-        is_read: false,
         createdAt: serverTimestamp(),
+        canReadDate: Timestamp.fromDate(canReadDate),
       }
     );
 

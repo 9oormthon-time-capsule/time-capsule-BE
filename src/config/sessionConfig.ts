@@ -2,7 +2,12 @@ import session from "express-session";
 
 declare module "express-session" {
   interface SessionData {
-    userData: { _id: number; name: string; profileImage: string };
+    userData: {
+      _id: number;
+      name: string;
+      profileImage: string;
+      accessToken: string;
+    };
   }
 }
 

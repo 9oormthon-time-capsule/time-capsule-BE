@@ -61,6 +61,7 @@ kakaoRouter.get(
       _id: user.data.id,
       name: user.data.kakao_account.profile.nickname,
       profileImage: user.data.kakao_account.profile.profile_image_url,
+      accessToken: token.data.access_token,
     };
 
     await req.session.save(); // 세션 저장

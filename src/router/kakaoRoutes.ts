@@ -34,9 +34,9 @@ kakaoRouter.get(
           code: req.query.code as string,
         }),
       });
-    } catch (e: any) {
-      res.json(e.data);
-      return;
+    } catch (error: any) {
+      console.error("토근을 불러올 수 없습니다.", error);
+      return res.status(400).json({ error: "토큰 발급 실패" });
     }
 
     /* access token 발급받은 뒤 사용자 정보 가져옴 */
@@ -49,9 +49,9 @@ kakaoRouter.get(
           Authorization: `Bearer ${token.data.access_token}`,
         },
       });
-    } catch (e: any) {
-      res.json(e.data);
-      return;
+    } catch (error: any) {
+      console.error("유저 데이터를 불러올 수 없습니다.", error);
+      return res.status(400).json({ error: "사용자 정보 조회 실패" });
     }
 
     /* 가지고 온 사용자 정보 DB & session 저장 */

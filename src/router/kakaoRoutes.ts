@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import axios from "axios";
 import qs from "qs";
 
-import { setUsers } from "../firebase/user";
+import { setUsers } from "../firebase/firebaseUser";
 
 export const kakaoRouter = Router();
 

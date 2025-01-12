@@ -79,3 +79,30 @@ kakaoRouter.get("/api/user", async (req: Request, res: Response) => {
     res.status(500).json({ e: "사용자 조회 실패" });
   }
 });
+
+/* 카카오 로그아웃 API */
+kakaoRouter.post("/api/logout", async (req: any, res: any) => {
+  const accessToken = req.session.userData?.accessToken;
+
+  if (!accessToken) {
+    return res.status(401).json({ error: "로그인 상태가 아닙니다." });
+  }
+
+  try {
+    await axios({
+      method: "POST",
+      url: "https://kapi.kakao.com/v1/user/logout",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    delete req.session.userData;
+    await req.session.save();
+
+    res.status(200).json({ message: "로그아웃 성공" });
+  } catch (e: any) {
+    console.log(e);
+    res.status(500).json({ error: "로그아웃 실패" });
+  }
+});

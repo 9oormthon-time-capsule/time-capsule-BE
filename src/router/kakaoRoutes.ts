@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import axios from "axios";
 import qs from "qs";
 
-import { setUsers } from "../firebase/firebaseUser";
+import { deleteUser, setUsers } from "../firebase/firebaseUser";
 
 export const kakaoRouter = Router();
 
@@ -101,5 +101,25 @@ kakaoRouter.post("/api/logout", async (req: any, res: any) => {
   } catch (e: any) {
     console.log(e);
     res.status(500).json({ error: "로그아웃 실패" });
+  }
+});
+
+kakaoRouter.delete("/api/withdraw", async (req: any, res: any) => {
+  const userId = req.session.userData?._id;
+
+  if (!userId) {
+    return res.status(401).json({ error: "로그인 상태가 아닙니다." });
+  }
+
+  try {
+    await deleteUser(userId);
+
+    delete req.session.userData;
+    await req.session.save();
+
+    res.status(200).json({ message: "회원 탈퇴가 완료되었습니다." });
+  } catch (error) {
+    console.error("회원 탈퇴 실패:", error);
+    res.status(500).json({ error: "회원 탈퇴 중 오류가 발생했습니다." });
   }
 });

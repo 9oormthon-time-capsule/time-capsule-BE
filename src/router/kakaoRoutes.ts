@@ -30,7 +30,7 @@ kakaoRouter.get(
         data: qs.stringify({
           grant_type: "authorization_code",
           client_id: kakao.CLIENT_ID,
-          redirectUri: kakao.REDIRECT_URI,
+          redirect_uri: kakao.REDIRECT_URI,
           code: req.query.code as string,
         }),
       });

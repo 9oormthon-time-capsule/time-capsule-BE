@@ -3,6 +3,7 @@ import {
   addCategory,
   deleteCategories,
   getCategories,
+  modifyCategories,
 } from "../firebase/firebaseCategory";
 
 const router = Router();
@@ -37,6 +38,34 @@ router.get("/todo/category", async (req, res) => {
     res.status(200).json(categories);
   } catch (error: any) {
     console.error("Error fetching categories:", error);
+    res.status(500).send(error.message);
+  }
+});
+
+router.patch("/todo/category/:categoryId", async (req, res) => {
+  const userId = req.session.userData?._id;
+  const { categoryId } = req.params;
+  const { categoryName, textColor } = req.body;
+
+  if (!userId) {
+    res.status(401).send("로그인이 필요합니다.");
+    return;
+  }
+
+  if (!categoryId) {
+    res.status(400).send("카테고리 ID가 필요합니다.");
+    return;
+  }
+
+  try {
+    const categories = await modifyCategories(
+      userId,
+      categoryId,
+      categoryName,
+      textColor
+    );
+    res.status(200).json(categories);
+  } catch (error: any) {
     res.status(500).send(error.message);
   }
 });

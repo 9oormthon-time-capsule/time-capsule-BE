@@ -5,6 +5,7 @@ import {
   doc,
   getDocs,
   serverTimestamp,
+  updateDoc,
 } from "firebase/firestore";
 import { database } from "../config/firebaseConfig";
 
@@ -42,6 +43,30 @@ export const getCategories = async (userId: number) => {
     return categories;
   } catch (error) {
     throw new Error(`카테고리 조회 중 오류 발생: ${error}`);
+  }
+};
+
+export const modifyCategories = async (
+  userId: number,
+  categoryId: string,
+  categoryName: string,
+  textColor: string
+) => {
+  try {
+    const categoryDocRef = doc(
+      database,
+      "categories",
+      userId.toString(),
+      "category",
+      categoryId
+    );
+
+    await updateDoc(categoryDocRef, {
+      categoryName,
+      textColor,
+    });
+  } catch (error) {
+    throw new Error(`카테고리 수정 중 오류 발생: ${error}`);
   }
 };
 

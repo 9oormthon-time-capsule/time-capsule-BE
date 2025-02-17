@@ -7,7 +7,6 @@ import {
   doc,
   updateDoc,
   deleteDoc,
-  Timestamp,
 } from "firebase/firestore";
 
 // Todo 등록 함수
@@ -18,22 +17,14 @@ export const addTodo = async (
   selectedDate: string
 ) => {
   try {
-    const selectedDateObj = new Date(selectedDate);
-
-    const currentDate = new Date();
-    selectedDateObj.setHours(
-      currentDate.getHours(),
-      currentDate.getMinutes(),
-      currentDate.getSeconds(),
-      currentDate.getMilliseconds()
-    );
     const docRef = await addDoc(
       collection(doc(database, "todos", userId.toString()), "posts"),
       {
         task,
         categoryId,
         isCompleted: false,
-        createdAt: Timestamp.fromDate(selectedDateObj),
+        selectedDate,
+        createdAt: serverTimestamp(),
       }
     );
 

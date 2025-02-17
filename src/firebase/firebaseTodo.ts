@@ -55,12 +55,14 @@ export const getTodo = async (userId: number) => {
 export const updateTodo = async (
   userId: number,
   todoId: string,
+  task: string,
   isCompleted: boolean
 ) => {
   try {
     await updateDoc(
       doc(database, "todos", userId.toString(), "posts", todoId),
       {
+        task,
         isCompleted,
       }
     );

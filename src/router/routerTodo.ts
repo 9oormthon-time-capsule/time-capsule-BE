@@ -44,7 +44,7 @@ router.get("/todo/task", async (req, res) => {
 router.patch("/todo/task/:todoId", async (req, res) => {
   const userId = req.session.userData?._id;
   const { todoId } = req.params;
-  const { isCompleted } = req.body;
+  const { task, isCompleted } = req.body;
 
   if (!userId) {
     res.status(401).send("로그인이 필요합니다.");
@@ -52,7 +52,7 @@ router.patch("/todo/task/:todoId", async (req, res) => {
   }
 
   try {
-    await updateTodo(userId, todoId, isCompleted);
+    await updateTodo(userId, todoId, task, isCompleted);
     res.status(200).send("할 일이 수정되었습니다.");
   } catch (error: any) {
     res.status(500).send(error.message);

@@ -5,13 +5,15 @@ import {
   getDocs,
   serverTimestamp,
   doc,
+  query,
+  orderBy,
 } from "firebase/firestore";
 
 // 회고 등록 함수
 export const addReflect = async (
   userId: number,
   content: string,
-  emoji: string
+  emoji: string,
 ) => {
   try {
     const docRef = await addDoc(
@@ -20,7 +22,7 @@ export const addReflect = async (
         content,
         emoji,
         createdAt: serverTimestamp(),
-      }
+      },
     );
 
     return docRef.id;
@@ -32,9 +34,17 @@ export const addReflect = async (
 // 회고 조회 함수
 export const getReflect = async (userId: number) => {
   try {
-    const querySnapshot = await getDocs(
-      collection(doc(database, "reflects", userId.toString()), "posts")
+    const reflectCollection = collection(
+      doc(database, "reflects", userId.toString()),
+      "posts",
     );
+
+    const reflectsQuery = query(
+      reflectCollection,
+      orderBy("createdAt", "desc"),
+    );
+
+    const querySnapshot = await getDocs(reflectsQuery);
     const reflects = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),

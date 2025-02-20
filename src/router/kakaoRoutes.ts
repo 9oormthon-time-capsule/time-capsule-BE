@@ -63,7 +63,7 @@ kakaoRouter.get("/oauth/callback/kakao", async (req: any, res: any) => {
   };
 
   await req.session.save(); // 세션 저장
-  res.redirect(`http://localhost:3000/main`);
+  res.redirect(`https://tcapsule.shop/main`);
 });
 
 /* session에 저장된 사용자 정보 Client 전달 */

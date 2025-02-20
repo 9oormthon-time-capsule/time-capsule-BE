@@ -20,9 +20,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://tcapsule.shop",
     credentials: true,
-  })
+  }),
 );
 
 app.get("/", (req, res) => {

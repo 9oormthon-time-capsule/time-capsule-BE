@@ -71,7 +71,7 @@ exports.kakaoRouter.get("/oauth/callback/kakao", (req, res) => __awaiter(void 0,
         accessToken: token.data.access_token,
     };
     yield req.session.save(); // 세션 저장
-    res.redirect(`http://localhost:3000/main`);
+    res.redirect(`https://tcapsule.shop/main`);
 }));
 /* session에 저장된 사용자 정보 Client 전달 */
 exports.kakaoRouter.get("/api/user", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
